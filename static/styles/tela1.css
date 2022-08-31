@@ -83,16 +83,16 @@
     margin-top: 20px;
 }
 
-.user-quizzes {
+.user-container {
     display: none;
 }
 
-.user-quizzes > header {
+.user-container > header {
     display: flex;
     justify-content: space-between;
 }
 
-.user-quizzes > header > p {
+.user-container > header > p {
     font-size: 20px;
     font-weight: 700;
     line-height: 23px;
@@ -117,9 +117,20 @@ section > header, .quizz {
 }
 
 .quizz {
+    display: flex;
     width: 340px;
     height: 181px;
     background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%,
     rgba(0, 0, 0, 0.5) 64.58%, #000000 100%);
+    background-size: 340px 181px;
     border-radius: 5px;
+    align-items: flex-end;
+    justify-content: center;
+    font-size: 19px;
+    line-height: 22px;
+    color: #fff;
+}
+
+@media screen and (min-width: 375px) {
+    
 }
