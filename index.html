@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="static/styles/reset.css">
     <link rel="stylesheet" href="static/styles/tela1.css">
     <link rel="stylesheet" href="static/styles/tela2.css">
+    <link rel="stylesheet" href="static/styles/tela3.css">
 
 </head>
 <body>
@@ -89,10 +90,25 @@
 
     </main>
 
-    <main class="tela3"></main>
+    <main class="tela3 hidden">
+      <header class="topbar">BuzzQuizz</header>
+      <section class="criar-quizz">
+        <h1>Comece pelo começo</h1>
+      </section>
+      <section class="formulario-inicio">
+        <input class="titulo-criar-quizz">
+        <input class="imagem-criar-quizz">
+        <input class="quantidade-perguntas">
+        <input class="quantidade-niveis">
+      </section>
+      <button class="vermelho"></button>
+    </main>
 
 
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.0/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.27.2/axios.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prettier/2.7.1/standalone.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
     <script src="static/scripts/script.js"></script>
