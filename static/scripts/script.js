@@ -55,3 +55,4 @@ function createQuizz() {
 
 getQuizzes();
 createQuizz();
+
