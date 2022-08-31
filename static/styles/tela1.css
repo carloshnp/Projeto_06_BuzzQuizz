@@ -99,12 +99,6 @@
     color: black;
 }
 
-[name=add-circle] {
-    font-size: 30px;
-    color: #EC362D;
-    cursor: pointer;
-}
-
 section > header, .quizz {
     margin-bottom: 15px;
 }
@@ -152,6 +146,12 @@ section > header, .quizz {
         display: flex;
         flex-flow: row wrap;
         justify-content: space-between;
+    }
+
+    [name=add-circle] {
+        font-size: 30px;
+        color: #EC362D;
+        cursor: pointer;
     }
 
 }

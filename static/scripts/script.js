@@ -38,6 +38,20 @@ function renderQuizzes(obj) {
     quizz.style.backgroundImage = `url(${obj.image})`;
     quizz.innerHTML = obj.title;
     buzzQuizzes.insertAdjacentElement("beforeend", quizz);
+    quizz.addEventListener("click", () => {
+        document.querySelector(".tela1").style.display = "none";
+        document.querySelector(".tela2").style.display = "initial";
+        // depois tem que mudar pra abrir o quizz especifico!!
+    })
+}
+
+function createQuizz() {
+    const button = document.querySelector(".create");
+    button.addEventListener("click", () => {
+        document.querySelector(".tela1").style.display = "none";
+        document.querySelector(".tela3").style.display = "initial";
+    })
 }
 
 getQuizzes();
+createQuizz();
