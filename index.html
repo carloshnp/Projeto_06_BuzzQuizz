@@ -7,6 +7,7 @@
     <title>BuzzQuizz</title>
 
     <link rel="stylesheet" href="/static/styles/tela1.css">
+    <link rel="stylesheet" href="/static/styles/reset.css">
 
 </head>
 <body>
@@ -18,13 +19,15 @@
                 <button class="create">Criar Quizz</button>
             </article>
             <section class="user-quizzes">
-                <p>Seus Quizzes</p>
-                <ion-icon name="add-circle"></ion-icon>
+                <header>
+                    <p>Seus Quizzes</p>
+                    <ion-icon name="add-circle"></ion-icon>
+                </header>
                 <article class="quizz"></article>
             </section>
         </section>
         <section class="all">
-            <p>Todos os Quizzes</p>
+            <header>Todos os Quizzes</header>
             <article class="buzz-quizzes">
                 <article class="quizz"></article>
             </article>
@@ -34,5 +37,10 @@
     <main class="tela2"></main>
 
     <main class="tela3"></main>
+
+
+
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 </body>
 </html>
