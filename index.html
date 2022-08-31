@@ -5,12 +5,30 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BuzzQuizz</title>
+
+    <link rel="stylesheet" href="/static/styles/tela1.css">
+
 </head>
 <body>
     <main class="container-main tela1">
-        <header class="topbar"></header>
-        <section class="user"></section>
-        <section class="buzz"></section>
+        <header class="topbar">BuzzQuizz</header>
+        <section class="user-content">
+            <article class="noquizz">
+                <p>Você não criou nenhum quizz ainda :(</p>
+                <button class="create">Criar Quizz</button>
+            </article>
+            <section class="user-quizzes">
+                <p>Seus Quizzes</p>
+                <ion-icon name="add-circle"></ion-icon>
+                <article class="quizz"></article>
+            </section>
+        </section>
+        <section class="all">
+            <p>Todos os Quizzes</p>
+            <article class="buzz-quizzes">
+                <article class="quizz"></article>
+            </article>
+        </section>
     </main>
 
     <main class="tela2"></main>
