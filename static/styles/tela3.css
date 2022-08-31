@@ -1,3 +1,23 @@
-.tela3.hidden {
+.tela3.escondido {
   display: none;
 }
+
+h1 {
+  height: 89px;
+  font-size: 20px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+}
+
+.formulario-inicio {
+  margin: 0 auto;
+}
+
+.tela3 input {
+  width: 91%;
+  height: 46px;
+  border: solid 1px #D1D1D1;
+  border-radius: 5px;
+}
+
