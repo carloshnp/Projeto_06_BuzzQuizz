@@ -133,13 +133,12 @@ section > header, .quizz {
     }
 
     .user-content, .all, .user-container {
-        width: 90%;
+        width: 85%;
     }
 
     .user-container {
         margin: auto;
     }
-
 
     /* a primeira pessoa que ver isso me manda msg lá no slack pf */
     .buzz-quizzes {
