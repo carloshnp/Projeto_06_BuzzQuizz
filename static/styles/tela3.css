@@ -44,8 +44,15 @@
   border-radius: 15px;
   width: 86%;
   height: 54px;
+  color: #FFFFFF;
+  font-size: 18px;
+  font-weight: 400;
 }
 
 .hidden {
+  display: none;
+}
+
+.container-main.tela1 {
   display: none;
 }
