@@ -140,7 +140,6 @@ section > header, .quizz {
         margin: auto;
     }
 
-    /* a primeira pessoa que ver isso me manda msg lá no slack pf */
     .buzz-quizzes {
         display: flex;
         flex-flow: row wrap;
