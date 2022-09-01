@@ -41,7 +41,8 @@ function renderQuizzes(obj) {
             const storedQuizz = getQuizzes(storedKey);
             const quizz = document.createElement("article");
             quizz.className = "quizz";
-            quizz.style.backgroundImage = `url(${storedQuizz.image})`;
+            quizz.style.background = `linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 64%, #000000 100%), url(${obj.image})`;
+            quizz.style.backgroundSize = "340px 181px";
             quizz.innerHTML = storedQuizz.title;
             userQuizzes.insertAdjacentElement("beforeend", quizz);
 
@@ -51,7 +52,8 @@ function renderQuizzes(obj) {
     const buzzQuizzes = document.querySelector(".buzz-quizzes");
     const quizz = document.createElement("article");
     quizz.className = "quizz";
-    quizz.style.backgroundImage = `url(${obj.image})`;
+    quizz.style.background = `linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 64%, #000000 100%), url(${obj.image})`;
+    quizz.style.backgroundSize = "340px 181px";
     quizz.innerHTML = obj.title;
     buzzQuizzes.insertAdjacentElement("beforeend", quizz);
     quizz.addEventListener("click", () => {
