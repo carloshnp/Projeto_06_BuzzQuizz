@@ -40,6 +40,7 @@ function renderQuizzes(obj) {
             const storedKey = buzzAPI.getQuizz(`${key}`);
             const storedQuizz = getQuizzes(storedKey);
             const quizz = document.createElement("article");
+            quizz.id = storedQuizz.id;
             quizz.className = "quizz";
             quizz.style.background = `linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 64%, #000000 100%), url(${obj.image})`;
             quizz.style.backgroundSize = "340px 181px";
@@ -51,6 +52,7 @@ function renderQuizzes(obj) {
 
     const buzzQuizzes = document.querySelector(".buzz-quizzes");
     const quizz = document.createElement("article");
+    quizz.id = obj.id;
     quizz.className = "quizz";
     quizz.style.background = `linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 64%, #000000 100%), url(${obj.image})`;
     quizz.style.backgroundSize = "340px 181px";
