@@ -34,8 +34,8 @@ function renderQuizzes(obj) {
 
     const userQuizzes = document.querySelector(".user-quizzes");
     const numOfQuizzes = buzzAPI.numberOfKeys;
-    if(!numOfQuizzes){
-        for(const key in numberOfKeys) {
+    if(numOfQuizzes !== 0 || numOfQuizzes !== undefined){
+        for(const key in numOfQuizzes) {
 
             const storedKey = buzzAPI.getQuizz(`${key}`);
             const storedQuizz = getQuizzes(storedKey);
