@@ -1,65 +1,158 @@
-let valores = [];
+let values = [];
 let quizz = {};
-let numeroPerguntas;
-let numeroNiveis;
+let numberQuestions;
+let numberLevels;
 
 
-// transforma valores do input numa array
-function pegarValue(i) {
+// transforma values do input numa array
+function getValue(i) {
     const valor = i.value;
-    valores.push(valor);
+    values.push(valor);
 }
 
 
 // cria o quizz a partir das informações básicas
 // cada condicional verifica os requisitos de cada input
 function criarQuizz() {
-    // pega todos os inputs para usar a função pegarValue
+    // pega todos os inputs para usar a função getValue
     let element = document.querySelectorAll('.formulario-inicio input');
-    element.forEach(i => pegarValue(i))
+    element.forEach(i => getValue(i))
 
     // verifica se o título possui entre 20 e 65 caracteres
-    if (valores[0].length >= 20 && valores[0].length <= 65){
-        quizz['title'] = `${valores[0]}`;
+    if (values[0].length >= 20 && values[0].length <= 65){
+        quizz['title'] = `${values[0]}`;
     }
     else {
         alert('Insira um título entre 20 e 65 caracteres!')
-        valores.length = 0;
+        values.length = 0;
     }
 
     // verifica se a imagem possui formato URL (usar API URL?? perguntar pro tutor)
-    quizz['image'] = `${valores[1]}`;
+    quizz['image'] = `${values[1]}`;
 
     // verifica se o número de perguntas é, no mínimo, 3
-    const nPerguntas = parseInt(valores[2]);
-    if (nPerguntas >= 3) {
-        numeroPerguntas = nPerguntas;
+    const nQuestions = parseInt(values[2]);
+    if (nQuestions >= 3) {
+        numberQuestions = nQuestions;
     }
     else {
         alert('O seu quizz deve ter no mínimo 3 perguntas!')
-        valores.length = 0;
+        values.length = 0;
     }
     // verifica se o número de níveis é, no mínimo, 2
-    const nNiveis = parseInt(valores[3]);
-    if (nNiveis >= 2) {
-        numeroNiveis = nNiveis;
+    const nLevels = parseInt(values[3]);
+    if (nLevels >= 2) {
+        numberLevels = nLevels;
     }
     else {
         alert('O seu quizz deve ter no mínimo 2 níveis!')
-        valores.length = 0;
+        values.length = 0;
     }
 
-    if (valores.length = 4) {
-        renderizarPerguntasNiveis();
-
+    if (values.length = 4) {
+        // renderiza os formulários de perguntas e níveis
+        renderQuestions();
+        renderLevels();
+        // esconde a tela de informações básicas do quizz
         const parte1 = document.querySelector('.criar-quizz');
         parte1.classList.toggle('hidden');
+        // mostra a tela de criação de perguntas do quizz
+        const parte2 = document.querySelector('.criar-perguntas-quizz');
+        parte2.classList.toggle('hidden');
     }
 }
 
+function renderQuestions() {
+    const element = document.querySelector('.perguntas');
+
+    for (let i = 1; i <= numberQuestions; i++) {
+        element.innerHTML += `
+            <section class="pergunta hidden-edit">
+                <h2>Pergunta ${i}</h2>
+                <img class="teste" src="static/img/black-box.png" onclick="showQuestion(this)">
+                <section class="pergunta-titulo">
+                    <input class="texto">
+                    <input class="cor-fundo">
+                </section>
+                <section class="resposta-correta">
+                    <h2>Resposta correta</h2>
+                    <section class="correta">
+                        <input class="resposta">
+                        <input class="imagem">
+                </section>
+                <section class="respostas-incorretas">
+                    <h2>Respostas incorretas</h2>
+                    <section class="incorreta">
+                        <input class="resposta">
+                        <input class="imagem">
+                    </section>
+                    <section class="incorreta">
+                        <input class="resposta">
+                        <input class="imagem">
+                    </section>
+                    <section class="incorreta">
+                        <input class="resposta">
+                        <input class="imagem">
+                    </section>
+                </section>
+            </section>
+        `
+    }
+
+    const questionOne = document.querySelector('.pergunta')
+    questionOne.classList.remove('hidden-edit');
+    questionOne.classList.add('open');
+}
+
+function showQuestion(teste) {
+    const element = document.querySelector('.pergunta.open');
+    element.classList.remove('open');
+    element.classList.add('hidden-edit');
+
+    const questionOpen = teste.parentElement;
+    questionOpen.classList.remove('hidden-edit');
+    questionOpen.classList.add('open');
+}
+
+function renderLevels() {
+    const element = document.querySelector('.niveis');
+
+    // algum bug não está criando os innerHTML dos níveis, não entendi o pq
+
+    for (let i = 1; i <= numberLevels.length; i++) {
+        element.innerHTML += `
+            <section class="level hidden-edit">
+                <h2>Nivel ${i}</h2>
+                <img class="teste" src="static/img/black-box.png" onclick="showLevel(this)">
+                <section class="level-inputs">
+                    <input class="level-title">
+                    <input class="level-percentage">
+                    <input class="level-image">
+                    <input class="level-description">
+                </section>
+            </section>
+        `
+    }
+    console.log(element);
+
+    const levelOne = document.querySelector('.level');
+    console.log(levelOne);
+    levelOne.classList.remove('hidden-edit');
+    levelOne.classList.add('open');
+}
+
+function showLevel(teste) {
+    const element = document.querySelector('.level.open');
+    element.classList.remove('open');
+    element.classList.add('hidden-edit');
+
+    const questionOpen = teste.parentElement;
+    questionOpen.classList.remove('hidden-edit');
+    questionOpen.classList.add('open');
+}
+
+
 // cria os inputs de perguntas e níveis baseados na quantidade digitada pelo usuário
-function renderizarPerguntasNiveis() {
-    return '';
     
     // criar os inputs das perguntas de acordo com o layout
     // criar a pergunta escondida (com botão de revelar pergunta)
@@ -93,7 +186,7 @@ function renderizarPerguntasNiveis() {
             
     2.3) ao gerar o formulário, apenas a primeira pergunta deve estar 'aberta', e todas as outras devem estar escondidas
     */
-
+    
     // criar os inputs dos níveis de acordo com o layout
     // criar o nível escondida (com botão de revelar nível)
     /* 
@@ -126,7 +219,6 @@ function renderizarPerguntasNiveis() {
     // dar toggle('hidden') na class 'criar-perguntas-quizz'
 
     // dividir essa função em várias funções
-}
 
 function guardarPerguntas() {
     return '';
