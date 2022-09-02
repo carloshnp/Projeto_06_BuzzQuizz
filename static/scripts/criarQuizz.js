@@ -49,11 +49,11 @@ function criarQuizz() {
         values.length = 0;
     }
 
-    if (values.length = 4) {
+    if (values.length == 4) {
         // renderiza os formulários de perguntas e níveis
         renderQuestions();
         // adicionar renderLevels(); aqui
-
+        renderLevels();
 
         // esconde a tela de informações básicas do quizz
         const parte1 = document.querySelector('.criar-quizz');
@@ -73,28 +73,28 @@ function renderQuestions() {
                 <h2>Pergunta ${i}</h2>
                 <img class="teste" src="static/img/black-box.png" onclick="showQuestion(this)">
                 <section class="pergunta-titulo">
-                    <input class="texto">
-                    <input class="cor-fundo">
+                    <input class="texto" placeholder="Texto da pergunta">
+                    <input class="cor-fundo" placeholder="Cor de fundo da pergunta">
                 </section>
                 <section class="resposta-correta">
                     <h2>Resposta correta</h2>
                     <section class="correta">
-                        <input class="resposta">
-                        <input class="imagem">
+                        <input class="resposta" placeholder="Resposta correta">
+                        <input class="imagem" placeholder="URL da imagem">
                 </section>
                 <section class="respostas-incorretas">
                     <h2>Respostas incorretas</h2>
                     <section class="incorreta">
-                        <input class="resposta">
-                        <input class="imagem">
+                        <input class="resposta" placeholder="Resposta incorreta 1">
+                        <input class="imagem" placeholder="URL da imagem 1">
                     </section>
                     <section class="incorreta">
-                        <input class="resposta">
-                        <input class="imagem">
+                        <input class="resposta" placeholder="Resposta incorreta 2">
+                        <input class="imagem" placeholder="URL da imagem 2">
                     </section>
                     <section class="incorreta">
-                        <input class="resposta">
-                        <input class="imagem">
+                        <input class="resposta" placeholder="Resposta incorreta 3">
+                        <input class="imagem" placeholder="URL da imagem 3">
                     </section>
                 </section>
             </section>
@@ -121,24 +121,22 @@ function renderLevels() {
 
     // algum bug não está criando os innerHTML dos níveis, não entendi o pq
 
-    for (let i = 1; i <= numberLevels.length; i++) {
+    for (let i = 1; i <= numberLevels; i++) {
         element.innerHTML += `
             <section class="level hidden-edit">
                 <h2>Nivel ${i}</h2>
                 <img class="teste" src="static/img/black-box.png" onclick="showLevel(this)">
                 <section class="level-inputs">
-                    <input class="level-title">
-                    <input class="level-percentage">
-                    <input class="level-image">
-                    <input class="level-description">
+                    <input class="level-title" placeholder="Título do nível">
+                    <input class="level-percentage" placeholder="% de acerto mínima">
+                    <input class="level-image" placeholder="URL da imagem do nível">
+                    <input class="level-description" placeholder="Descrição do nível">
                 </section>
             </section>
         `
     }
-    console.log(element);
 
-    const levelOne = document.querySelector('.level');
-    console.log(levelOne);
+    const levelOne = document.querySelector(".level");
     levelOne.classList.remove('hidden-edit');
     levelOne.classList.add('open');
 }
