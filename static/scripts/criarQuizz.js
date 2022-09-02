@@ -52,7 +52,9 @@ function criarQuizz() {
     if (values.length = 4) {
         // renderiza os formulários de perguntas e níveis
         renderQuestions();
-        renderLevels();
+        // adicionar renderLevels(); aqui
+
+
         // esconde a tela de informações básicas do quizz
         const parte1 = document.querySelector('.criar-quizz');
         parte1.classList.toggle('hidden');
