@@ -66,6 +66,7 @@ function criarQuizz() {
 
 function renderQuestions() {
     const element = document.querySelector('.perguntas');
+    const regExHex = "^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$";
 
     for (let i = 1; i <= numberQuestions; i++) {
         element.innerHTML += `
@@ -73,28 +74,28 @@ function renderQuestions() {
                 <h2>Pergunta ${i}</h2>
                 <img class="teste" src="static/img/black-box.png" onclick="showQuestion(this)">
                 <section class="pergunta-titulo">
-                    <input class="texto" placeholder="Texto da pergunta">
-                    <input class="cor-fundo" placeholder="Cor de fundo da pergunta">
+                    <input type="text" class="texto" placeholder="Texto da pergunta" minlength="20" required>
+                    <input type="text" class="cor-fundo" placeholder="Cor de fundo da pergunta" pattern="${regExHex}" required>
                 </section>
                 <section class="resposta-correta">
                     <h2>Resposta correta</h2>
                     <section class="correta">
-                        <input class="resposta" placeholder="Resposta correta">
-                        <input class="imagem" placeholder="URL da imagem">
+                        <input type="text" class="resposta" placeholder="Resposta correta" required>
+                        <input type="url" class="imagem" placeholder="URL da imagem" required>
                 </section>
                 <section class="respostas-incorretas">
                     <h2>Respostas incorretas</h2>
                     <section class="incorreta">
-                        <input class="resposta" placeholder="Resposta incorreta 1">
-                        <input class="imagem" placeholder="URL da imagem 1">
+                        <input type="text" class="resposta" placeholder="Resposta incorreta 1" required>
+                        <input type="url" class="imagem" placeholder="URL da imagem 1" required>
                     </section>
                     <section class="incorreta">
-                        <input class="resposta" placeholder="Resposta incorreta 2">
-                        <input class="imagem" placeholder="URL da imagem 2">
+                        <input type="text" class="resposta" placeholder="Resposta incorreta 2">
+                        <input type="url" class="imagem" placeholder="URL da imagem 2">
                     </section>
                     <section class="incorreta">
-                        <input class="resposta" placeholder="Resposta incorreta 3">
-                        <input class="imagem" placeholder="URL da imagem 3">
+                        <input type="text" class="resposta" placeholder="Resposta incorreta 3">
+                        <input type="url" class="imagem" placeholder="URL da imagem 3">
                     </section>
                 </section>
             </section>
@@ -118,6 +119,7 @@ function showQuestion(teste) {
 
 function renderLevels() {
     const element = document.querySelector('.niveis');
+    const pattern = "^[0-1]([0-9]{2})"
 
     // algum bug não está criando os innerHTML dos níveis, não entendi o pq
 
@@ -127,10 +129,10 @@ function renderLevels() {
                 <h2>Nivel ${i}</h2>
                 <img class="teste" src="static/img/black-box.png" onclick="showLevel(this)">
                 <section class="level-inputs">
-                    <input class="level-title" placeholder="Título do nível">
-                    <input class="level-percentage" placeholder="% de acerto mínima">
-                    <input class="level-image" placeholder="URL da imagem do nível">
-                    <input class="level-description" placeholder="Descrição do nível">
+                    <input type="text" class="level-title" placeholder="Título do nível" minlength="10" required>
+                    <input type="text" class="level-percentage" placeholder="% de acerto mínima" pattern="${pattern}" required>
+                    <input type="url" class="level-image" placeholder="URL da imagem do nível" required>
+                    <input type="text" class="level-description" placeholder="Descrição do nível" minlength="30" required>
                 </section>
             </section>
         `
@@ -153,10 +155,10 @@ function showLevel(teste) {
 
 
 // cria os inputs de perguntas e níveis baseados na quantidade digitada pelo usuário
-    
+
     // criar os inputs das perguntas de acordo com o layout
     // criar a pergunta escondida (com botão de revelar pergunta)
-    /* 
+    /*
     1) pegar o número de perguntas digitado pelo usuário
     2) gerar formulário de perguntas:
     2.1) pergunta completa:
@@ -168,14 +170,14 @@ function showLevel(teste) {
 
         - h2: respostas incorretas
         - 6 inputs em grupos de 2 inputs (espaçados): reposta incorreta (i), url da imagem (i)
-        
+
         - repetir esse formato para as N perguntas digitadas pelo usuário
 
         - cada bloco possui espaçamento de 28px
 
-    2.2) pergunta escondida: 
+    2.2) pergunta escondida:
         - apenas uma pergunta vai estar 'aberta', todas as outras estarão escondidas
-        
+
         - o bloco possui espaçamento de 28px, e apenas o 'h2: 'Pergunta (i)'' é exibido
         - o bloco possui um ícone à direita para edição da pergunta
         - ao clicar no ícone:
@@ -183,28 +185,28 @@ function showLevel(teste) {
             - todas as outras perguntas devem ser escondidas
             - o ícone deve ser escondido
             - as informações colocadas nos inputs não pode ser perdida ao esconder as perguntas
-            
+
     2.3) ao gerar o formulário, apenas a primeira pergunta deve estar 'aberta', e todas as outras devem estar escondidas
     */
-    
+
     // criar os inputs dos níveis de acordo com o layout
     // criar o nível escondida (com botão de revelar nível)
-    /* 
+    /*
     1) pegar o número de níveis digitado pelo usuário
     2) gerar formulário de níveis:
     2.1) nível completo:
         - h2: 'Nível 1'
         - 4 inputs: título do nível, % de acerto mínima, URL da imagem do nível, descrição do nível
 
-        - o input da descrição do nível possui height maior que os outros inputs (criar classe CSS específica para ele) 
-        
+        - o input da descrição do nível possui height maior que os outros inputs (criar classe CSS específica para ele)
+
         - repetir esse formato para os N níveis digitados pelo usuário
 
         - cada bloco (nível) possui padding-bottom de 28px
 
-    2.2) nível escondido: 
+    2.2) nível escondido:
         - apenas um nível vai estar 'aberto', todos os outros estarão escondidos
-        
+
         - cada bloco possui espaçamento de 28px, e apenas o 'h2: 'Nível (i)' é exibido
         - o bloco possui um ícone à direita para edição do nível
         - ao clicar no ícone:
@@ -212,7 +214,7 @@ function showLevel(teste) {
             - todos os outros níveis devem ser escondidos
             - o ícone deve ser escondido
             - as informações colocadas nos inputs não pode ser perdida ao esconder os níveis
-            
+
     2.3) ao gerar o formulário, apenas o primeiro nível deve estar 'aberto', e todas os outros devem estar escondidos
     */
 
@@ -220,8 +222,44 @@ function showLevel(teste) {
 
     // dividir essa função em várias funções
 
-function guardarPerguntas() {
-    return '';
+function storeQuestions() {
+
+    const questions = document.querySelectorAll(".pergunta");
+    const questionsObj = [];
+    for(const question of questions) {
+        const questionSection = question.querySelector(".pergunta-titulo");
+        const answerSection = question.querySelector(".resposta-correta");
+        const correctAnswer = answerSection.querySelector(".correta");
+        const incorrectAnswers = answerSection.querySelectorAll(".respostas-incorretas > .incorreta");
+        const questionObj = {
+            key: "questions",
+            value: [
+                {
+                    title: questionSection.querySelector(".texto").value,
+                    color: questionSection.querySelector(".cor-fundo").value,
+                    answers: [
+                        {
+                            text: correctAnswer.querySelector(".resposta").value,
+                            image: correctAnswer.querySelector(".imagem").value,
+                            isCorrectAnswer: true
+                        },
+                    ]
+                }
+            ]
+        }
+        for(const incorrectAnswer of incorrectAnswers) {
+            const incorrectAnswerObj = {
+                text: incorrectAnswer.querySelector(".resposta").value,
+                imagem: incorrectAnswer.querySelector(".imagem").value,
+                isCorrectAnswer: false
+            }
+            questionObj.value.map(obj => {
+                obj.answers.push(incorrectAnswerObj);
+            })
+        }
+        questionsObj.push(questionObj);
+    }
+
 
     // essa função deve verificar os inputs das perguntas para atender os requisitos de cada input da pergunta; se todos os requisitos forem cumpridos, as perguntas devem ser guardadas no objeto 'quizz{}' no formato a seguir
     /*
@@ -233,7 +271,7 @@ function guardarPerguntas() {
             - text: texto da resposta(i)
             - image: imagem da resposta(i)
             - isCorrectAnswer: false ou true
-     */ 
+     */
 }
 
 function guardarNiveis() {
@@ -246,6 +284,6 @@ function guardarNiveis() {
         - image: imagem do nível(i)
         - text: descrição do nível(i)
         - minValue: % mínima do nível(i) (entre 0 e 100)
-     */ 
+     */
 
 }

@@ -17,22 +17,22 @@
         <section class="user-content">
             <article class="noquizz">
                 <p>Você não criou nenhum quizz ainda :(</p>
-                <button type="button" class="create">Criar Quizz</button>
+                <button type="button" class="create" data-identifier="create-quizz">Criar Quizz</button>
             </article>
             <section class="user-container">
                 <header>
                     <p>Seus Quizzes</p>
-                    <ion-icon name="add-circle"></ion-icon>
+                    <ion-icon name="add-circle" data-identifier="create-quizz"></ion-icon>
                 </header>
 
-                <section class="user-quizzes">
+                <section class="user-quizzes" data-identifier="user-quizzes">
                     <article class="quizz"></article>
                 </section>
             </section>
         </section>
         <section class="all">
             <header>Todos os Quizzes</header>
-            <section class="buzz-quizzes">
+            <section class="buzz-quizzes" data-identifier="general-quizzes">
             </section>
         </section>
     </main>
@@ -95,24 +95,24 @@
         <section class="criar-quizz">
             <h1>Comece pelo começo</h1>
             <section class="formulario-inicio">
-                <input class="titulo-criar-quizz" placeholder="Título do seu quizz">
-                <input class="imagem-criar-quizz" placeholder="URL da imagem do seu quizz">
-                <input class="quantidade-perguntas" placeholder="Quantidade de perguntas do quizz">
-                <input class="quantidade-niveis" placeholder="Quantidade de níveis do quizz">
+                <input class="titulo-criar-quizz" placeholder="Título do seu quizz" required>
+                <input class="imagem-criar-quizz" placeholder="URL da imagem do seu quizz" required>
+                <input class="quantidade-perguntas" placeholder="Quantidade de perguntas do quizz" required>
+                <input class="quantidade-niveis" placeholder="Quantidade de níveis do quizz" required>
             </section>
-            <button class="botao-criar" onclick="criarQuizz()">Prosseguir pra criar perguntas</button>
+            <button  class="botao-criar" onclick="criarQuizz()">Prosseguir pra criar perguntas</button>
         </section>
 
         <section class="criar-perguntas-quizz hidden">
             <h1>Crie suas perguntas</h1>
             <section class="perguntas"></section>
-            <button class="botao-criar"></button>
+            <button class="botao-criar" onclick="storeQuestions()">Prosseguir para criar níveis</button>
         </section>
 
         <section class="criar-niveis-quizz hidden">
             <h1>Agora, decida os níveis!</h1>
             <section class="niveis"></section>
-            <button class="botao-criar"></button>
+            <button type="button" class="botao-criar"></button>
         </section>
 
         <section class="quizz-criado hidden">
