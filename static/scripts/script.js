@@ -72,23 +72,16 @@ function createQuizz() {
     })
 }
 
-
 getQuizzes();
 createQuizz();
 
-
-
 let quizes;
-let chosen; //variável para guardar o objeto de um quiz.
+let chosen;
 let erros = 0;
 let acertos = 0;
 let resultado = 0;
 
-
-
-
 function selectedQuizz(quizID) {
-    console.log(quizID)
     const request = axios.get(`${buzzAPI.quizzes}/${quizID}`);
     request.then(checkQuizz);
     request.catch(errorOpenQuiz);
@@ -98,9 +91,6 @@ function selectedQuizz(quizID) {
 function checkQuizz (answer){
     const status = answer.status;
     chosen = answer.data;
-    console.log("ta passando")
-    console.log(chosen);
-
     openQuiz();
 }
 
@@ -130,7 +120,6 @@ function openQuiz () {
         </div>
         `;
     for (let i=0; i < qtdPerguntas; i++) {
-        
         page.innerHTML += `
             <div class="caixa-pergunta">
                 <div class="titulo-pergunta" style="background-color: ${perguntas[i].color}">
@@ -211,18 +200,15 @@ function backToPage1 () {
 
 function calcularAcertos() {
     let niveis = chosen.levels;
-    console.log(niveis);
     let perguntas = chosen.questions.length;
     let respondidas = acertos + erros;
     let nivel;
     let aux = 0;
 
     if (respondidas < perguntas) {
-        console.log("ainda tem pergunta pra responder");
         return;
     } else {
         resultado = Math.round((acertos/perguntas) * 100);
-        console.log(resultado);
         for (let i=0; i < niveis.length; i++) {
             if (resultado >= niveis[i].minValue) {
                 if (niveis[i].minValue >= aux) {
@@ -270,41 +256,33 @@ function renderizarRespostas (perguntas,i) {
 
 
 function selecionarResposta(elemento) {
-    console.log(elemento);
     const outras = document.querySelectorAll(".respostas")
-    console.log(outras);
     
     let ehCorreta = elemento.querySelector(".escondido").innerHTML;
     let anterior = elemento.previousElementSibling;
     let proxima = elemento.nextElementSibling;
 
-    //se ele for o primeiro da lista e a próxima resposta já tiver a classe opaco : faz nada
     if (anterior === null) {
         if (proxima.classList.contains("opaco") || proxima.classList.contains("clicado")) {
-            console.log("é o primeiro e já tem");
             return;
         }
     } else if (proxima === null) {
-        //se ele for o último da lista e resposta anterior já tiver a classe opaco : faz nada.
+        
         if (anterior.classList.contains("opaco") || anterior.classList.contains("clicado")) {
-            console.log("é o último e já tem ");
             return;
         }
     } else if (proxima.classList.contains("opaco") || anterior.classList.contains("opaco")) {
-        //se o elemento estiver no meio e ou a anterior ou a próxima resposta já tem opaco: faz nada.
-        console.log("já tem");
         return;
     }
 
     
-    if (ehCorreta === "true") { //se ele acertou
+    if (ehCorreta === "true") {
         acertos += 1;
         elemento.classList.add("acertou");
         elemento.classList.add("clicado");
 
         if (proxima !== null) {
             while (proxima !== null)  {
-                console.log(proxima);
                 if(!proxima.classList.contains("opaco")) {
                     proxima.classList.add("opaco");
                 }
@@ -316,7 +294,6 @@ function selecionarResposta(elemento) {
         }
         if (anterior !== null) {
             while(anterior !== null) {
-                console.log(anterior);
                 if (!anterior.classList.contains("opaco")) {
                     anterior.classList.add("opaco");
                 }
@@ -327,7 +304,7 @@ function selecionarResposta(elemento) {
             }
         }
 
-    } else { //se ele errou a resposta
+    } else {
         erros += 1;
         elemento.classList.add("errou");
         elemento.classList.add("clicado");
@@ -335,9 +312,7 @@ function selecionarResposta(elemento) {
             while (proxima !== null)  {
                 if(!proxima.classList.contains("opaco")) {
                     proxima.classList.add("opaco");
-                
                     ehCorreta = proxima.querySelector(".escondido").innerHTML;
-                    console.log(ehCorreta);
                     if(ehCorreta === "true") {
                         proxima.classList.add("acertou");
                     } else {
@@ -351,7 +326,6 @@ function selecionarResposta(elemento) {
             while(anterior !== null) {
                 if (!anterior.classList.contains("opaco")) {
                     anterior.classList.add("opaco");
-                    
                     ehCorreta = anterior.querySelector(".escondido").innerHTML;
                     if (ehCorreta === "true") {
                         anterior.classList.add("acertou");
@@ -364,7 +338,6 @@ function selecionarResposta(elemento) {
         }
     }
 
-    //criei uma função anônima para scrollar a tela depois de dois segundos.
     setTimeout(function () {
                             elementoPai = elemento.parentElement;
                             elementoVo = elementoPai.parentElement;
