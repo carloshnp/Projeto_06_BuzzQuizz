@@ -1,5 +1,5 @@
-let values = [];
-let quizz = {};
+const values = [];
+const quizz = {};
 let numberQuestions;
 let numberLevels;
 
@@ -53,7 +53,6 @@ function criarQuizz() {
         // renderiza os formulários de perguntas e níveis
         renderQuestions();
         // adicionar renderLevels(); aqui
-        renderLevels();
 
         // esconde a tela de informações básicas do quizz
         const parte1 = document.querySelector('.criar-quizz');
@@ -118,6 +117,10 @@ function showQuestion(teste) {
 }
 
 function renderLevels() {
+    const parte2 = document.querySelector('.criar-perguntas-quizz');
+    parte2.classList.toggle('hidden');
+    const parte3 = document.querySelector(".criar-niveis-quizz");
+    parte3.classList.toggle("hidden");
     const element = document.querySelector('.niveis');
     const pattern = "^[0-1]([0-9]{2})"
 
@@ -232,8 +235,7 @@ function storeQuestions() {
         const correctAnswer = answerSection.querySelector(".correta");
         const incorrectAnswers = answerSection.querySelectorAll(".respostas-incorretas > .incorreta");
         const questionObj = {
-            key: "questions",
-            value: [
+            questions: [
                 {
                     title: questionSection.querySelector(".texto").value,
                     color: questionSection.querySelector(".cor-fundo").value,
@@ -253,12 +255,14 @@ function storeQuestions() {
                 imagem: incorrectAnswer.querySelector(".imagem").value,
                 isCorrectAnswer: false
             }
-            questionObj.value.map(obj => {
+            questionObj.questions.map(obj => {
                 obj.answers.push(incorrectAnswerObj);
             })
         }
         questionsObj.push(questionObj);
+        quizz['questions'] = questionsObj;
     }
+    renderLevels();
 
 
     // essa função deve verificar os inputs das perguntas para atender os requisitos de cada input da pergunta; se todos os requisitos forem cumpridos, as perguntas devem ser guardadas no objeto 'quizz{}' no formato a seguir
