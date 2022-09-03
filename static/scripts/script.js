@@ -24,7 +24,7 @@ function getQuizzes(id="") {
         } else if(err.request) {
             console.log(err.request);
         } else {
-            console.log('Erro', err.message);
+            console.log('Erro: ', err.message);
         }
         console.log(err.config);
     });
@@ -33,18 +33,24 @@ function getQuizzes(id="") {
 function renderQuizzes(obj) {
     const userQuizzes = document.querySelector(".user-quizzes");
     const numOfQuizzes = buzzAPI.numberOfKeys;
-    if(numOfQuizzes !== 0 || numOfQuizzes !== undefined){
-        for(const key in numOfQuizzes) {
+    if(numOfQuizzes !== 0 && numOfQuizzes !== undefined){
+        for(const key of numOfQuizzes) {
 
-            const storedKey = buzzAPI.getQuizz(`${key}`);
+            const storedKey = buzzAPI.getQuizz(`${Number(key)}`);
             const storedQuizz = getQuizzes(storedKey);
             const quizz = document.createElement("article");
             quizz.id = storedQuizz.id;
             quizz.className = "quizz";
-            quizz.style.background = `linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 64%, #000000 100%), url(${obj.image})`;
+            quizz.style.background = `linear-gradient(180deg, rgba(255, 255, 255, 0) 0%,
+                                        rgba(0, 0, 0, 0.5) 64%, #000000 100%), url(${obj.image})`;
             quizz.style.backgroundSize = "340px 181px";
             quizz.innerHTML = storedQuizz.title;
             userQuizzes.insertAdjacentElement("beforeend", quizz);
+            quizz.addEventListener("click", () => {
+                document.querySelector(".tela1").style.display = "none";
+                document.querySelector(".tela2").style.display = "initial";
+                selectedQuizz(quizz.id)
+            })
 
         }
     }
@@ -53,7 +59,8 @@ function renderQuizzes(obj) {
     const quizz = document.createElement("article");
     quizz.id = obj.id;
     quizz.className = "quizz";
-    quizz.style.background = `linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 64%, #000000 100%), url(${obj.image})`;
+    quizz.style.background = `linear-gradient(180deg, rgba(255, 255, 255, 0) 0%,
+                                rgba(0, 0, 0, 0.5) 64%, #000000 100%), url(${obj.image})`;
     quizz.style.backgroundSize = "340px 181px";
     quizz.innerHTML = obj.title;
     buzzQuizzes.insertAdjacentElement("beforeend", quizz);
@@ -130,7 +137,7 @@ function openQuiz () {
         </div>
         `;
     for (let i=0; i < qtdPerguntas; i++) {
-        
+
         page.innerHTML += `
             <div class="caixa-pergunta">
                 <div class="titulo-pergunta" style="background-color: ${perguntas[i].color}">
@@ -163,7 +170,7 @@ function renderizarFimQuizz(nivel) {
                     <p>${nivel.text}</p>
                 </div>
             </div>
-        
+
         <div class="botao-reiniciar" onclick="restartQuizz()">
             <p>Reiniciar Quizz</p>
         </div>
@@ -229,12 +236,12 @@ function calcularAcertos() {
                     nivel = niveis[i];
                     aux = nivel.minValue;
                 }
-            } 
+            }
         }
-        
+
     }
     renderizarFimQuizz(nivel);
-    mostrarFimQuizz();  
+    mostrarFimQuizz();
 }
 
 
@@ -251,11 +258,11 @@ function shuffleArray(array) {
 function renderizarRespostas (perguntas,i) {
     let respostas = "";
     let qtdRespostas = perguntas[i].answers.length;
-    
+
     perguntas[i].answers.sort(shuffleArray(perguntas[i].answers));
-    
+
     for (let j=0; j < qtdRespostas; j++) {
-        
+
         respostas += `
             <div class="resposta" onclick="selecionarResposta(this)">
                 <p class="escondido">${perguntas[i].answers[j].isCorrectAnswer}</p>
@@ -273,7 +280,7 @@ function selecionarResposta(elemento) {
     console.log(elemento);
     const outras = document.querySelectorAll(".respostas")
     console.log(outras);
-    
+
     let ehCorreta = elemento.querySelector(".escondido").innerHTML;
     let anterior = elemento.previousElementSibling;
     let proxima = elemento.nextElementSibling;
@@ -296,7 +303,7 @@ function selecionarResposta(elemento) {
         return;
     }
 
-    
+
     if (ehCorreta === "true") { //se ele acertou
         acertos += 1;
         elemento.classList.add("acertou");
@@ -335,7 +342,7 @@ function selecionarResposta(elemento) {
             while (proxima !== null)  {
                 if(!proxima.classList.contains("opaco")) {
                     proxima.classList.add("opaco");
-                
+
                     ehCorreta = proxima.querySelector(".escondido").innerHTML;
                     console.log(ehCorreta);
                     if(ehCorreta === "true") {
@@ -351,7 +358,7 @@ function selecionarResposta(elemento) {
             while(anterior !== null) {
                 if (!anterior.classList.contains("opaco")) {
                     anterior.classList.add("opaco");
-                    
+
                     ehCorreta = anterior.querySelector(".escondido").innerHTML;
                     if (ehCorreta === "true") {
                         anterior.classList.add("acertou");
@@ -386,7 +393,7 @@ function selecionarResposta(elemento) {
 
 function mostrarFimQuizz() {
     setTimeout(() => {
-        fim = document.querySelector(".fim-quizz");        
+        fim = document.querySelector(".fim-quizz");
         fim.scrollIntoView({block:"start", behavior:"smooth", inline:"nearest"});
     },2000);
 }
