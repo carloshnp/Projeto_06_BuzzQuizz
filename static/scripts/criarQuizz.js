@@ -2,6 +2,7 @@ const values = [];
 const quizz = {};
 let numberQuestions;
 let numberLevels;
+const regExHex = new RegExp("^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$");
 
 
 // transforma values do input numa array
@@ -50,6 +51,8 @@ function criarQuizz() {
     }
 
     if (values.length == 4) {
+        quizz['questions'] = '';
+        quizz['levels'] = '';
         // renderiza os formulários de perguntas e níveis
         renderQuestions();
         // adicionar renderLevels(); aqui
@@ -134,7 +137,6 @@ function criarQuizz() {
 
 function renderQuestions() {
     const element = document.querySelector('.perguntas');
-    const regExHex = "^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$";
 
     for (let i = 1; i <= numberQuestions; i++) {
         element.innerHTML += `
@@ -186,10 +188,6 @@ function showQuestion(teste) {
 }
 
 function renderLevels() {
-    const parte2 = document.querySelector('.criar-perguntas-quizz');
-    parte2.classList.toggle('hidden');
-    const parte3 = document.querySelector(".criar-niveis-quizz");
-    parte3.classList.toggle("hidden");
     const element = document.querySelector('.niveis');
     const pattern = "^[0-1]([0-9]{2})"
 
@@ -223,9 +221,16 @@ function showLevel(teste) {
     questionOpen.classList.add('open');
 }
 
+let titleInput;
+let colorInput;
+let textInput;
+let imageInput;
+let textWrongInput;
+let imageWrongInput;
+let stopQuestions = true;
 
 function storeQuestions() {
-    
+
     const questions = document.querySelectorAll(".pergunta");
     const questionsObj = [];
     for(const question of questions) {
@@ -234,46 +239,54 @@ function storeQuestions() {
         const correctAnswer = answerSection.querySelector(".correta");
         const incorrectAnswers = answerSection.querySelectorAll(".respostas-incorretas > .incorreta");
 
-        const titleInput = questionSection.querySelector(".texto").value;
-        const colorInput = questionSection.querySelector(".cor-fundo").value;
-        const textInput = correctAnswer.querySelector(".resposta").value;
-        const imageInput = correctAnswer.querySelector(".imagem").value;
+        titleInput = questionSection.querySelector(".texto").value;
+        colorInput = questionSection.querySelector(".cor-fundo").value;
+        textInput = correctAnswer.querySelector(".resposta").value;
+        imageInput = correctAnswer.querySelector(".imagem").value;
+        let answersArray = [];
 
+        // é pra ele enviar uma array de objetos, aqui ele tá enviando um objeto de arrays de objetos
         const questionObj = {
-            questions: [
-                {
-                    title: titleInput,
-                    color: colorInput,
-                    answers: [
-                        {
-                            text: textInput,
-                            image: imageInput,
-                            isCorrectAnswer: true
-                        },
-                    ]
-                }
-            ]
+            title: titleInput,
+            color: colorInput,
+            answers: answersArray
         }
+
+        const correctAnswerObj = {
+            text: textInput,
+            image: imageInput,
+            isCorrectAnswer: true
+        }
+        answersArray.push(correctAnswerObj);
         // requisitos input: texto 20 caracteres min, cor hexadecimal, texto das respostas n pode estar vazio, URL da imagem deve ser url, obrigatória resposta correta + pelo menos 1 resposta incorreta
         checkQuestion();
 
         for(const incorrectAnswer of incorrectAnswers) {
 
-            const textWrongInput = incorrectAnswer.querySelector(".resposta").value;
-            const imageWrongInput = incorrectAnswer.querySelector(".imagem").value;
+            textWrongInput = incorrectAnswer.querySelector(".resposta").value;
+            imageWrongInput = incorrectAnswer.querySelector(".imagem").value;
             const incorrectAnswerObj = {
                 text: incorrectAnswer.querySelector(".resposta").value,
                 imagem: incorrectAnswer.querySelector(".imagem").value,
                 isCorrectAnswer: false
             }
-            questionObj.questions.map(obj => {
-                obj.answers.push(incorrectAnswerObj);
-            })
+            answersArray.push(incorrectAnswerObj);
             checkIncorrectAnswers();
         }
         questionsObj.push(questionObj);
-        quizz['questions'] = questionsObj;
     }
+    // fazer condição para que o stop se torne false (questões preenchidas corretamente)
+    if (stopQuestions == true) {
+        return;
+    }
+    quizz['questions'] = questionsObj;
+    // esconde a tela de criação de perguntas do quizz
+    const parte2 = document.querySelector('.criar-perguntas-quizz');
+    parte2.classList.toggle('hidden');
+    // mostra a tela de criação de níveis do quizz
+    const parte3 = document.querySelector('.criar-niveis-quizz');
+    parte3.classList.toggle('hidden');
+    console.log('mudou de tela');
     /*
      essa função deve verificar os inputs das perguntas para atender os requisitos de cada input da pergunta; se todos os requisitos forem cumpridos, as perguntas devem ser guardadas no objeto 'quizz{}' no formato a seguir
     - key: questions
@@ -297,7 +310,7 @@ function checkQuestion() {
         return;
     }
     if (textInput == null) {
-        alert('O texto da resposta não pode estar vazio!')
+        alert('O texto da resposta não pode estar vazio!');
         return;
     }
     // escrever condicional da URL da imagem
@@ -305,14 +318,36 @@ function checkQuestion() {
 
 function checkIncorrectAnswers() {
     if (textWrongInput == null) {
-        alert('O texto da resposta não pode estar vazio!')
+        alert('O texto da resposta não pode estar vazio!');
         return;
     }
     // escrever condicional da URL da imagem
 }
 
-function guardarNiveis() {
-    return '';
+let percentageInput;
+let descriptionInput;
+
+function storeLevels() {
+    const levels = document.querySelectorAll(".level");
+    const levelsObj = [];
+    for(const level of levels) {
+        const levelSection = level.querySelector(".level-inputs");
+
+        titleInput = levelSection.querySelector(".level-title").value;
+        percentageInput = levelSection.querySelector(".level-percentage").value;
+        imageInput = levelSection.querySelector(".level-image").value;
+        descriptionInput = levelSection.querySelector(".level-description").value;
+
+        const levelObj = {
+                    title: titleInput,
+                    image: imageInput,
+                    text: descriptionInput,
+                    minValue: percentageInput
+                }
+        levelsObj.push(levelObj);
+    }
+    quizz['levels'] = levelsObj;
+
     // essa função deve verificar os inputs dos níveis para atender os requisitos de cada input do nível; se todos os requisitos forem cumpridos, os níveis devem ser guardadas no objeto 'quizz{}' no formato a seguir
     /*
     - key: levels

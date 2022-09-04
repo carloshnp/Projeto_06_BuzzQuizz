@@ -137,3 +137,7 @@
   }
 
 }
+
+.container-main.tela1 {
+  display: none;
+}
