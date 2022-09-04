@@ -50,7 +50,8 @@
     font-size: 23px;
     line-height: 27px;
     box-sizing: border-box;
-    padding-left: 100px;
+    margin: 0px auto;
+
 }
 
 .resposta img {
@@ -78,8 +79,9 @@
 }
 
 .resposta {
-    margin-top: 6px;
-    margin-bottom: 6px;
+    margin: 6px 5px;
+    
+    
 }
 
 .resposta img:hover{
@@ -204,30 +206,36 @@
 }
 
 @media (max-width: 600px){
-
+div .tela2{
+    width: 100%;
+    margin: 0px auto;
+}
 div .caixa-pergunta{
-    width: 90%;
-    height: auto;
+    width: auto;
+    margin: 0px auto;
 }
 div .titulo-pergunta{
     width: 100%;
-    
-
+    padding-left: 0px;
 }
+
+div .respostas{
+    width: 100%;
+    margin: 20px auto;
+    flex-wrap: wrap;
+}
+
 div .resposta{
-    width:50%;
-   
-    
+    width:45%;  
 }
 div .resposta img{
     width: 100%;
-
 }
 
 div .fim-quizz{
-    width: 90%;
-    
+    width: 100%;
     flex-direction: column;
+    box-sizing: border-box;
 }
 div .imagem-fim img{
     width: 100%;
@@ -235,5 +243,7 @@ div .imagem-fim img{
 div .caixa-texto-fim{
     flex-direction: column;
 }
-
+div .imagem-fim{
+    width: 90%;
+}
 }
