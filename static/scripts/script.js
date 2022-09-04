@@ -1,11 +1,11 @@
 const buzzAPI = {
-    quizzes: "https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes",
+    quizzes: "https://mock-api.driven.com.br/api/v7/buzzquizz/quizzes",
     storeQuizz: (id, key) => {
         // ID é um número a partir de 1, não zero!!
         // ID tem que ser passado como string!!
         localStorage.setItem(id, key);
     },
-    getQuizz: (id) => {
+    getQuizz: (id) => { 
         // Aqui também...
         localStorage.getItem(id);
     },
@@ -127,10 +127,6 @@ function openQuiz () {
         </div>
         `;
     for (let i=0; i < qtdPerguntas; i++) {
-<<<<<<< HEAD
-=======
-
->>>>>>> 67cd5d3d7ee5beb2306168e513a227c5eff7156e
         page.innerHTML += `
             <div class="caixa-pergunta">
                 <div class="titulo-pergunta" style="background-color: ${perguntas[i].color}">
@@ -268,12 +264,7 @@ function renderizarRespostas (perguntas,i) {
 
 function selecionarResposta(elemento) {
     const outras = document.querySelectorAll(".respostas")
-<<<<<<< HEAD
-    
-=======
-    console.log(outras);
 
->>>>>>> 67cd5d3d7ee5beb2306168e513a227c5eff7156e
     let ehCorreta = elemento.querySelector(".escondido").innerHTML;
     let anterior = elemento.previousElementSibling;
     let proxima = elemento.nextElementSibling;
@@ -291,13 +282,7 @@ function selecionarResposta(elemento) {
         return;
     }
 
-<<<<<<< HEAD
-    
-    if (ehCorreta === "true") {
-=======
-
     if (ehCorreta === "true") { //se ele acertou
->>>>>>> 67cd5d3d7ee5beb2306168e513a227c5eff7156e
         acertos += 1;
         elemento.classList.add("acertou");
         elemento.classList.add("clicado");
@@ -333,10 +318,7 @@ function selecionarResposta(elemento) {
             while (proxima !== null)  {
                 if(!proxima.classList.contains("opaco")) {
                     proxima.classList.add("opaco");
-<<<<<<< HEAD
-=======
 
->>>>>>> 67cd5d3d7ee5beb2306168e513a227c5eff7156e
                     ehCorreta = proxima.querySelector(".escondido").innerHTML;
                     if(ehCorreta === "true") {
                         proxima.classList.add("acertou");
@@ -351,10 +333,7 @@ function selecionarResposta(elemento) {
             while(anterior !== null) {
                 if (!anterior.classList.contains("opaco")) {
                     anterior.classList.add("opaco");
-<<<<<<< HEAD
-=======
 
->>>>>>> 67cd5d3d7ee5beb2306168e513a227c5eff7156e
                     ehCorreta = anterior.querySelector(".escondido").innerHTML;
                     if (ehCorreta === "true") {
                         anterior.classList.add("acertou");
@@ -373,10 +352,8 @@ function selecionarResposta(elemento) {
                             proxima = elementoVo.nextElementSibling;
 
                             if (proxima === null) {
-                                console.log("função scroll: não tem mais pergunta");
                                 return;
                             } else {
-                                console.log("tem próxima");
                                 proxima.scrollIntoView({block:"start", behavior:"smooth", inline:"center"});
                             }
                         },2000);
