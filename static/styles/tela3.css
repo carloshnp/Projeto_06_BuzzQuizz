@@ -125,7 +125,7 @@
   display: none;
 }
 
-@media screen and (min-width: 1100px) {
+@media (min-width: 1100px) {
 
   .formulario-inicio, .perguntas {
     width: 600px;
