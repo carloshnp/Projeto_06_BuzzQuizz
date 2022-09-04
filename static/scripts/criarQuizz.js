@@ -53,7 +53,7 @@ function criarQuizz() {
         // renderiza os formulários de perguntas e níveis
         renderQuestions();
         // adicionar renderLevels(); aqui
-
+        renderLevels();
         // esconde a tela de informações básicas do quizz
         const parte1 = document.querySelector('.criar-quizz');
         parte1.classList.toggle('hidden');
@@ -62,100 +62,6 @@ function criarQuizz() {
         parte2.classList.toggle('hidden');
     }
 }
-
-function renderQuestions() {
-    const element = document.querySelector('.perguntas');
-    const regExHex = "^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$";
-
-    for (let i = 1; i <= numberQuestions; i++) {
-        element.innerHTML += `
-            <section class="pergunta hidden-edit">
-                <h2>Pergunta ${i}</h2>
-                <img class="teste" src="static/img/black-box.png" onclick="showQuestion(this)">
-                <section class="pergunta-titulo">
-                    <input type="text" class="texto" placeholder="Texto da pergunta" minlength="20" required>
-                    <input type="text" class="cor-fundo" placeholder="Cor de fundo da pergunta" pattern="${regExHex}" required>
-                </section>
-                <section class="resposta-correta">
-                    <h2>Resposta correta</h2>
-                    <section class="correta">
-                        <input type="text" class="resposta" placeholder="Resposta correta" required>
-                        <input type="url" class="imagem" placeholder="URL da imagem" required>
-                </section>
-                <section class="respostas-incorretas">
-                    <h2>Respostas incorretas</h2>
-                    <section class="incorreta">
-                        <input type="text" class="resposta" placeholder="Resposta incorreta 1" required>
-                        <input type="url" class="imagem" placeholder="URL da imagem 1" required>
-                    </section>
-                    <section class="incorreta">
-                        <input type="text" class="resposta" placeholder="Resposta incorreta 2">
-                        <input type="url" class="imagem" placeholder="URL da imagem 2">
-                    </section>
-                    <section class="incorreta">
-                        <input type="text" class="resposta" placeholder="Resposta incorreta 3">
-                        <input type="url" class="imagem" placeholder="URL da imagem 3">
-                    </section>
-                </section>
-            </section>
-        `
-    }
-
-    const questionOne = document.querySelector('.pergunta')
-    questionOne.classList.remove('hidden-edit');
-    questionOne.classList.add('open');
-}
-
-function showQuestion(teste) {
-    const element = document.querySelector('.pergunta.open');
-    element.classList.remove('open');
-    element.classList.add('hidden-edit');
-
-    const questionOpen = teste.parentElement;
-    questionOpen.classList.remove('hidden-edit');
-    questionOpen.classList.add('open');
-}
-
-function renderLevels() {
-    const parte2 = document.querySelector('.criar-perguntas-quizz');
-    parte2.classList.toggle('hidden');
-    const parte3 = document.querySelector(".criar-niveis-quizz");
-    parte3.classList.toggle("hidden");
-    const element = document.querySelector('.niveis');
-    const pattern = "^[0-1]([0-9]{2})"
-
-    // algum bug não está criando os innerHTML dos níveis, não entendi o pq
-
-    for (let i = 1; i <= numberLevels; i++) {
-        element.innerHTML += `
-            <section class="level hidden-edit">
-                <h2>Nivel ${i}</h2>
-                <img class="teste" src="static/img/black-box.png" onclick="showLevel(this)">
-                <section class="level-inputs">
-                    <input type="text" class="level-title" placeholder="Título do nível" minlength="10" required>
-                    <input type="text" class="level-percentage" placeholder="% de acerto mínima" pattern="${pattern}" required>
-                    <input type="url" class="level-image" placeholder="URL da imagem do nível" required>
-                    <input type="text" class="level-description" placeholder="Descrição do nível" minlength="30" required>
-                </section>
-            </section>
-        `
-    }
-
-    const levelOne = document.querySelector(".level");
-    levelOne.classList.remove('hidden-edit');
-    levelOne.classList.add('open');
-}
-
-function showLevel(teste) {
-    const element = document.querySelector('.level.open');
-    element.classList.remove('open');
-    element.classList.add('hidden-edit');
-
-    const questionOpen = teste.parentElement;
-    questionOpen.classList.remove('hidden-edit');
-    questionOpen.classList.add('open');
-}
-
 
 // cria os inputs de perguntas e níveis baseados na quantidade digitada pelo usuário
 
@@ -225,8 +131,101 @@ function showLevel(teste) {
 
     // dividir essa função em várias funções
 
-function storeQuestions() {
 
+function renderQuestions() {
+    const element = document.querySelector('.perguntas');
+    const regExHex = "^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$";
+
+    for (let i = 1; i <= numberQuestions; i++) {
+        element.innerHTML += `
+            <section class="pergunta hidden-edit">
+                <h2>Pergunta ${i}</h2>
+                <img class="teste" src="static/img/black-box.png" onclick="showQuestion(this)">
+                <section class="pergunta-titulo">
+                    <input type="text" class="texto" placeholder="Texto da pergunta" minlength="20" required>
+                    <input type="text" class="cor-fundo" placeholder="Cor de fundo da pergunta" pattern="${regExHex}" required>
+                </section>
+                <section class="resposta-correta">
+                    <h2>Resposta correta</h2>
+                    <section class="correta">
+                        <input type="text" class="resposta" placeholder="Resposta correta" required>
+                        <input type="url" class="imagem" placeholder="URL da imagem" required>
+                </section>
+                <section class="respostas-incorretas">
+                    <h2>Respostas incorretas</h2>
+                    <section class="incorreta">
+                        <input type="text" class="resposta" placeholder="Resposta incorreta 1" required>
+                        <input type="url" class="imagem" placeholder="URL da imagem 1" required>
+                    </section>
+                    <section class="incorreta">
+                        <input type="text" class="resposta" placeholder="Resposta incorreta 2">
+                        <input type="url" class="imagem" placeholder="URL da imagem 2">
+                    </section>
+                    <section class="incorreta">
+                        <input type="text" class="resposta" placeholder="Resposta incorreta 3">
+                        <input type="url" class="imagem" placeholder="URL da imagem 3">
+                    </section>
+                </section>
+            </section>
+        `
+    }
+
+    const questionOne = document.querySelector('.pergunta')
+    questionOne.classList.remove('hidden-edit');
+    questionOne.classList.add('open');
+}
+
+function showQuestion(teste) {
+    const element = document.querySelector('.pergunta.open');
+    element.classList.remove('open');
+    element.classList.add('hidden-edit');
+
+    const questionOpen = teste.parentElement;
+    questionOpen.classList.remove('hidden-edit');
+    questionOpen.classList.add('open');
+}
+
+function renderLevels() {
+    const parte2 = document.querySelector('.criar-perguntas-quizz');
+    parte2.classList.toggle('hidden');
+    const parte3 = document.querySelector(".criar-niveis-quizz");
+    parte3.classList.toggle("hidden");
+    const element = document.querySelector('.niveis');
+    const pattern = "^[0-1]([0-9]{2})"
+
+    for (let i = 1; i <= numberLevels; i++) {
+        element.innerHTML += `
+            <section class="level hidden-edit">
+                <h2>Nivel ${i}</h2>
+                <img class="teste" src="static/img/black-box.png" onclick="showLevel(this)">
+                <section class="level-inputs">
+                    <input type="text" class="level-title" placeholder="Título do nível" minlength="10" required>
+                    <input type="text" class="level-percentage" placeholder="% de acerto mínima" pattern="${pattern}" required>
+                    <input type="url" class="level-image" placeholder="URL da imagem do nível" required>
+                    <input type="text" class="level-description" placeholder="Descrição do nível" minlength="30" required>
+                </section>
+            </section>
+        `
+    }
+
+    const levelOne = document.querySelector(".level");
+    levelOne.classList.remove('hidden-edit');
+    levelOne.classList.add('open');
+}
+
+function showLevel(teste) {
+    const element = document.querySelector('.level.open');
+    element.classList.remove('open');
+    element.classList.add('hidden-edit');
+    
+    const questionOpen = teste.parentElement;
+    questionOpen.classList.remove('hidden-edit');
+    questionOpen.classList.add('open');
+}
+
+
+function storeQuestions() {
+    
     const questions = document.querySelectorAll(".pergunta");
     const questionsObj = [];
     for(const question of questions) {
@@ -234,22 +233,34 @@ function storeQuestions() {
         const answerSection = question.querySelector(".resposta-correta");
         const correctAnswer = answerSection.querySelector(".correta");
         const incorrectAnswers = answerSection.querySelectorAll(".respostas-incorretas > .incorreta");
+
+        const titleInput = questionSection.querySelector(".texto").value;
+        const colorInput = questionSection.querySelector(".cor-fundo").value;
+        const textInput = correctAnswer.querySelector(".resposta").value;
+        const imageInput = correctAnswer.querySelector(".imagem").value;
+
         const questionObj = {
             questions: [
                 {
-                    title: questionSection.querySelector(".texto").value,
-                    color: questionSection.querySelector(".cor-fundo").value,
+                    title: titleInput,
+                    color: colorInput,
                     answers: [
                         {
-                            text: correctAnswer.querySelector(".resposta").value,
-                            image: correctAnswer.querySelector(".imagem").value,
+                            text: textInput,
+                            image: imageInput,
                             isCorrectAnswer: true
                         },
                     ]
                 }
             ]
         }
+        // requisitos input: texto 20 caracteres min, cor hexadecimal, texto das respostas n pode estar vazio, URL da imagem deve ser url, obrigatória resposta correta + pelo menos 1 resposta incorreta
+        checkQuestion();
+
         for(const incorrectAnswer of incorrectAnswers) {
+
+            const textWrongInput = incorrectAnswer.querySelector(".resposta").value;
+            const imageWrongInput = incorrectAnswer.querySelector(".imagem").value;
             const incorrectAnswerObj = {
                 text: incorrectAnswer.querySelector(".resposta").value,
                 imagem: incorrectAnswer.querySelector(".imagem").value,
@@ -258,15 +269,13 @@ function storeQuestions() {
             questionObj.questions.map(obj => {
                 obj.answers.push(incorrectAnswerObj);
             })
+            checkIncorrectAnswers();
         }
         questionsObj.push(questionObj);
         quizz['questions'] = questionsObj;
     }
-    renderLevels();
-
-
-    // essa função deve verificar os inputs das perguntas para atender os requisitos de cada input da pergunta; se todos os requisitos forem cumpridos, as perguntas devem ser guardadas no objeto 'quizz{}' no formato a seguir
     /*
+     essa função deve verificar os inputs das perguntas para atender os requisitos de cada input da pergunta; se todos os requisitos forem cumpridos, as perguntas devem ser guardadas no objeto 'quizz{}' no formato a seguir
     - key: questions
     - value: array de objetos (perguntas)
         - title: titulo da pergunta(i)
@@ -275,7 +284,31 @@ function storeQuestions() {
             - text: texto da resposta(i)
             - image: imagem da resposta(i)
             - isCorrectAnswer: false ou true
-     */
+    */
+}
+
+function checkQuestion() {
+    if (titleInput.length <= 20) {
+        alert('Insira ao menos 20 caracteres no título!');
+        return;
+    }
+    if (regExHex.test(colorInput) == false) {
+        alert('Insira uma cor hexadecimal!');
+        return;
+    }
+    if (textInput == null) {
+        alert('O texto da resposta não pode estar vazio!')
+        return;
+    }
+    // escrever condicional da URL da imagem
+}
+
+function checkIncorrectAnswers() {
+    if (textWrongInput == null) {
+        alert('O texto da resposta não pode estar vazio!')
+        return;
+    }
+    // escrever condicional da URL da imagem
 }
 
 function guardarNiveis() {
