@@ -248,7 +248,7 @@ function storeQuestions() {
         colorInput = questionSection.querySelector(".cor-fundo").value;
         textInput = correctAnswer.querySelector(".resposta").value;
         imageInput = correctAnswer.querySelector(".imagem").value;
-        let answersArray = [];
+        const answersArray = [];
 
         const questionObj = {
             title: titleInput,
@@ -320,16 +320,28 @@ function checkQuestion() {
         return;
     }
     else if (regExHex.test(colorInput) == false) {
-        alert('Insira uma cor hexadecimal!');
+        alert('Insira uma cor no formato hexadecimal!');
         return;
     }
-    // escrever condicional da URL da imagem
+    else if(!isValidURL(imageInput)) {
+        alert("A URL da imagem é inválida!")
+        return;
+    }
     else if (textInput == '') {
         alert('O texto da resposta não pode estar vazio!');
         return;
     }
     else {
         checkQCounter++;
+    }
+}
+
+function isValidURL(str) {
+    try {
+        new URL(str)
+        return true;
+    } catch (error) {
+        return false;
     }
 }
 
