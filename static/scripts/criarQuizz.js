@@ -150,7 +150,7 @@ function renderQuestions() {
         element.innerHTML += `
             <section class="pergunta hidden-edit">
                 <h2>Pergunta ${i}</h2>
-                <img class="teste" src="static/img/black-box.png" onclick="showQuestion(this)">
+                <img class="teste" src="static/img/Vector.png" onclick="showQuestion(this)">
                 <section class="pergunta-titulo">
                     <input type="text" class="texto" placeholder="Texto da pergunta" minlength="20" required>
                     <input type="text" class="cor-fundo" placeholder="Cor de fundo da pergunta" pattern="${regExHex}" required>
@@ -203,7 +203,7 @@ function renderLevels() {
         element.innerHTML += `
             <section class="level hidden-edit">
                 <h2>Nivel ${i}</h2>
-                <img class="teste" src="static/img/black-box.png" onclick="showLevel(this)">
+                <img class="teste" src="static/img/Vector.png" onclick="showLevel(this)">
                 <section class="level-inputs">
                     <input type="text" class="level-title" placeholder="Título do nível" minlength="10" required>
                     <input type="text" class="level-percentage" placeholder="% de acerto mínima" pattern="${pattern}" required>
@@ -230,6 +230,10 @@ function showLevel(teste) {
 }
 
 // essa função deve verificar os inputs das perguntas para atender os requisitos de cada input da pergunta; se todos os requisitos forem cumpridos, as perguntas devem ser guardadas no objeto 'quizz{}' na key 'questions'
+let checkQCounter = 0;
+let checkWQCounter = 0;
+let checkWQCounter1 = 0;
+
 function storeQuestions() {
 
     const questions = document.querySelectorAll(".pergunta");
@@ -246,7 +250,6 @@ function storeQuestions() {
         imageInput = correctAnswer.querySelector(".imagem").value;
         let answersArray = [];
 
-        // é pra ele enviar uma array de objetos, aqui ele tá enviando um objeto de arrays de objetos
         const questionObj = {
             title: titleInput,
             color: colorInput,
@@ -259,8 +262,8 @@ function storeQuestions() {
             isCorrectAnswer: true
         }
         answersArray.push(correctAnswerObj);
-        // requisitos input: texto 20 caracteres min, cor hexadecimal, texto das respostas n pode estar vazio, URL da imagem deve ser url, obrigatória resposta correta + pelo menos 1 resposta incorreta
         checkQuestion();
+        // requisitos input: texto 20 caracteres min, cor hexadecimal, texto das respostas n pode estar vazio, URL da imagem deve ser url, obrigatória resposta correta + pelo menos 1 resposta incorreta
 
         for(const incorrectAnswer of incorrectAnswers) {
 
@@ -273,11 +276,21 @@ function storeQuestions() {
             }
             answersArray.push(incorrectAnswerObj);
             checkIncorrectAnswers();
+            if (checkWQCounter1 == 1) {
+                checkQCounter = 0;
+                checkWQCounter1 = 0;
+                return;
+            }
         }
+        checkWQCounter = 0;
         questionsObj.push(questionObj);
     }
     // fazer condição para que o stop se torne false (questões preenchidas corretamente)
+    if (checkQCounter == numberQuestions) {
+        stopQuestions = false;
+    }
     if (stopQuestions == true) {
+        checkQCounter = 0;
         return;
     }
     quizz['questions'] = questionsObj;
@@ -306,26 +319,38 @@ function checkQuestion() {
         alert('Insira ao menos 20 caracteres no título!');
         return;
     }
-    if (regExHex.test(colorInput) == false) {
+    else if (regExHex.test(colorInput) == false) {
         alert('Insira uma cor hexadecimal!');
         return;
     }
-    if (textInput == null) {
+    // escrever condicional da URL da imagem
+    else if (textInput == '') {
         alert('O texto da resposta não pode estar vazio!');
         return;
     }
-    // escrever condicional da URL da imagem
+    else {
+        checkQCounter++;
+    }
 }
 
 function checkIncorrectAnswers() {
-    if (textWrongInput == null) {
-        alert('O texto da resposta não pode estar vazio!');
-        return;
+    if (checkWQCounter < 1) {
+        if (textWrongInput == '') {
+            alert('Deve haver pelo menos uma resposta incorreta!');
+            checkWQCounter1++;
+            return;
+        }
+        else {
+            checkWQCounter++;
+        }
     }
     // escrever condicional da URL da imagem
 }
 
 // essa função deve verificar os inputs dos níveis para atender os requisitos de cada input do nível; se todos os requisitos forem cumpridos, os níveis devem ser guardadas no objeto 'quizz{}' na key 'levels'
+
+let checkLCounter = 0;
+
 function storeLevels() {
     const levels = document.querySelectorAll(".level");
     const levelsObj = [];
@@ -333,7 +358,7 @@ function storeLevels() {
         const levelSection = level.querySelector(".level-inputs");
 
         levelTitleInput = levelSection.querySelector(".level-title").value;
-        percentageInput = levelSection.querySelector(".level-percentage").value;
+        percentageInput = parseInt(levelSection.querySelector(".level-percentage").value);
         levelImageInput = levelSection.querySelector(".level-image").value;
         descriptionInput = levelSection.querySelector(".level-description").value;
 
@@ -343,8 +368,14 @@ function storeLevels() {
                     text: descriptionInput,
                     minValue: percentageInput
                 }
-        levelsObj.push(levelObj);
+
         checkLevels();
+        levelsObj.push(levelObj);
+    }
+    checkNumberLevels();
+    if (stopLevels == true) {
+        checkLCounter = 0;
+        return;
     }
     quizz['levels'] = levelsObj;
     /*
@@ -362,24 +393,26 @@ function checkLevels() {
         alert("Insira ao menos 10 caracteres título do nível!");
         return;
     }
-    if((percentageInput < 0) && (percentageInput > 100)){
+    else if((percentageInput < 0) || (percentageInput > 100)){
         alert("% de acerto mínima do quizz deve ser um número entre 0 e 100!");
         return;
     }
-    if(levelImageInput){ // Verificador de URL.
-        return; 
-    }
-    if(descriptionInput.length < 30){
-        alert("Insira ao menso 30 caracteres na descrição do level!");
+    else if(descriptionInput.length < 30){
+        alert("Insira ao menso 30 caracteres na descrição do nível!");
         return;
     }
-    //Contador se der certo.
+    else {
+        checkLCounter++;
+    }
+    // fazer verificador de URL
 }
 
-
 function checkNumberLevels() {
-    if(levelsObj.length != numberLevels){
+    if(checkLCounter != numberLevels){
         alert("Termine de preencher os Niveis do seu Quizz!");
         return;
+    }
+    else {
+        stopLevels = false;
     }
 }
