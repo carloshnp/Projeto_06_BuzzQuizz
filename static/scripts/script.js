@@ -21,17 +21,17 @@ const values = [];
 const quizz = {};
 const regExHex = new RegExp("^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$");
 
-function localQuizzes(id) {
-    return localStorage.getItem(id);
-}
-
-function storeLocalQuizz(id, key) {
-    return localStorage.setItem(id, key);
-}
-
 const buzzAPI = {
     quizzes: "https://mock-api.driven.com.br/api/v7/buzzquizz/quizzes",
-    numberOfKeys: localStorage.getItem("q") !== null ? localStorage.getItem("q").split(",").length : null,
+    storeQuizz: (id, key) => {
+        // ID tem que ser passado como string!!
+        localStorage.setItem(id, key);
+    },
+    getQuizz: (id) => {
+        // Aqui também...
+        localStorage.getItem(id);
+    },
+    numberOfKeys: localStorage.getItem("quizzes").length,
 }
 
 function getQuizzes(id="") {
@@ -57,9 +57,9 @@ function renderQuizzes(obj) {
     const noQuizz = document.querySelector(".noquizz");
     const userContainer = document.querySelector(".user-container");
     const numOfQuizzes = buzzAPI.numberOfKeys;
-    const keys = localQuizzes("q").split(",");
     if(numOfQuizzes !== 0 && numOfQuizzes !== undefined && numOfQuizzes !== null){
-        for(const key of keys) {
+        for(const key of buzzAPI.getQuizz("quizzes")) {
+
             const storedQuizz = getQuizzes(key);
             const quizz = document.createElement("article");
             quizz.id = storedQuizz.id;
@@ -811,15 +811,13 @@ function checkNumberLevels() {
 // envia o quizz para a API
 function enviarQuizz() {
     const storedQuizzes = []
-    const keys = localQuizzes("q").split(",");
-    if(buzzAPI.numberOfKeys !== null)
-        for(const id of keys) {
-            storedQuizzes.push(id);
+    for(const id of buzzAPI.getQuizz("quizzes")) {
+        storedQuizzes.push(id);
     }
-    const prom = axios.post(buzzAPI.quizzes, quizz)
-    .then(response => {
-        storedQuizzes.push(response.data.id)
-        storeLocalQuizz("q", storedQuizzes);
+    const prom = axios.post(buzzAPI.quizzes, quizz);
+    prom.then(response => {
+        storedQuizz.push(response.data.id)
+        buzzAPI.storeQuizz("quizzes", storedQuizzes);
     }).catch(error => console.log(error));
 }
 
