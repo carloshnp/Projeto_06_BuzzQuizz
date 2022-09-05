@@ -154,7 +154,7 @@
 
 @media (min-width: 1100px) {
 
-  .formulario-inicio, .perguntas {
+  .formulario-inicio, .perguntas, .niveis {
     width: 600px;
   }
 
