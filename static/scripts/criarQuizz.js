@@ -1,3 +1,5 @@
+const buzzAPI = import("./script.js");
+
 const values = [];
 const quizz = {};
 let numberQuestions;
@@ -66,7 +68,7 @@ function criarQuizz() {
         // renderiza os formulários de perguntas e níveis
         renderQuestions();
         // adicionar renderLevels(); aqui
-        
+
         // esconde a tela de informações básicas do quizz
         const parte1 = document.querySelector('.criar-quizz');
         parte1.classList.toggle('hidden');
@@ -223,7 +225,7 @@ function showLevel(teste) {
     const element = document.querySelector('.level.open');
     element.classList.remove('open');
     element.classList.add('hidden-edit');
-    
+
     const questionOpen = teste.parentElement;
     questionOpen.classList.remove('hidden-edit');
     questionOpen.classList.add('open');
@@ -264,14 +266,16 @@ function storeQuestions() {
         answersArray.push(correctAnswerObj);
         checkQuestion();
         // requisitos input: texto 20 caracteres min, cor hexadecimal, texto das respostas n pode estar vazio, URL da imagem deve ser url, obrigatória resposta correta + pelo menos 1 resposta incorreta
-
         for(const incorrectAnswer of incorrectAnswers) {
 
             textWrongInput = incorrectAnswer.querySelector(".resposta").value;
             imageWrongInput = incorrectAnswer.querySelector(".imagem").value;
+            if(textWrongInput === "" || imageWrongInput === "") {
+                break;
+            }
             const incorrectAnswerObj = {
                 text: incorrectAnswer.querySelector(".resposta").value,
-                imagem: incorrectAnswer.querySelector(".imagem").value,
+                image: incorrectAnswer.querySelector(".imagem").value,
                 isCorrectAnswer: false
             }
             answersArray.push(incorrectAnswerObj);
@@ -397,7 +401,6 @@ function storeLevels() {
     const parte4 = document.querySelector('.quizz-criado');
     parte4.classList.toggle('hidden');
     enviarQuizz();
-    console.log('mudou de tela');
     /*
     - key: levels
     - value: array de objetos (níveis)
@@ -439,5 +442,11 @@ function checkNumberLevels() {
 
 // envia o quizz para a API
 function enviarQuizz() {
-    return;
+    const id = buzzAPI.numberOfKeys + 1;
+    const prom = axios.post(buzzAPI.quizzes, quizz);
+    prom.then(response => {
+        console.log(response.data);
+        buzzAPI.storeQuizz(`${id}`, response.data.id);
+    }).catch(error => console.log(error));
 }
+
