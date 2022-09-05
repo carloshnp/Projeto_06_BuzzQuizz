@@ -54,7 +54,7 @@
   margin-top: 20px;
 }
 
-.criar-perguntas-quizz, .criar-niveis-quizz {
+.criar-perguntas-quizz, .criar-niveis-quizz, .quizz-criado {
   background-color: #FAFAFA;
   margin-top: 70px;
   padding-bottom: 60px;
@@ -146,6 +146,15 @@
 
 .level.hidden-edit h2 {
   padding-bottom: 28px;
+}
+
+.quizz-criado button {
+  
+}
+
+button.voltar-home {
+  background-color: #FAFAFA;
+  color: #B9B9B9;
 }
 
 .hidden {
