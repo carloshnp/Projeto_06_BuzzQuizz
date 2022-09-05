@@ -390,6 +390,14 @@ function storeLevels() {
         return;
     }
     quizz['levels'] = levelsObj;
+    // esconde a tela de criação de níveis do quizz
+    const parte3 = document.querySelector('.criar-niveis-quizz');
+    parte3.classList.toggle('hidden');
+    // mostra a tela de criação de níveis do quizz
+    const parte4 = document.querySelector('.quizz-criado');
+    parte4.classList.toggle('hidden');
+    enviarQuizz();
+    console.log('mudou de tela');
     /*
     - key: levels
     - value: array de objetos (níveis)
@@ -427,4 +435,9 @@ function checkNumberLevels() {
     else {
         stopLevels = false;
     }
+}
+
+// envia o quizz para a API
+function enviarQuizz() {
+    return;
 }
