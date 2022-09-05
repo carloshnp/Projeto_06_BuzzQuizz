@@ -358,5 +358,28 @@ function storeLevels() {
 }
 
 function checkLevels() {
-    return;
+    if(levelTitleInput.length < 10){
+        alert("Insira ao menos 10 caracteres título do nível!");
+        return;
+    }
+    if((percentageInput < 0) && (percentageInput > 100)){
+        alert("% de acerto mínima do quizz deve ser um número entre 0 e 100!");
+        return;
+    }
+    if(levelImageInput){ // Verificador de URL.
+        return; 
+    }
+    if(descriptionInput.length < 30){
+        alert("Insira ao menso 30 caracteres na descrição do level!");
+        return;
+    }
+    //Contador se der certo.
+}
+
+
+function checkNumberLevels() {
+    if(levelsObj.length != numberLevels){
+        alert("Termine de preencher os Niveis do seu Quizz!");
+        return;
+    }
 }
