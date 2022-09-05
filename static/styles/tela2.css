@@ -28,7 +28,7 @@
 }
 
 .caixa-pergunta {
-    width: 759px;
+    width:100% 690px;
     height: 676px;
     display: flex;
     flex-direction: column;
@@ -50,8 +50,12 @@
     font-size: 23px;
     line-height: 27px;
     box-sizing: border-box;
-    margin: 0px auto;
+    
+}
 
+.titulo-pergunta > h2 {
+    width: 95%;
+    word-wrap: break-word;
 }
 
 .resposta img {
@@ -75,12 +79,12 @@
     margin-top: 6px;
     margin-bottom: 15px;
     box-sizing: border-box;
-    flex-wrap: wrap;
+    width: 12rem 100%;
+    word-wrap: break-word;
 }
 
 .resposta {
     margin: 6px 5px;
-    
     
 }
 
@@ -111,7 +115,8 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width:759px;
+    width:100%;
+    max-width: 720px;
     height: 430px;
     background-color: #ffffff;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);
@@ -134,12 +139,15 @@
     font-weight: 700;
     line-height: 30px;
     margin: auto 20px;
+    width: 95%;
+    word-wrap: break-word;
 }
 
 .caixa-texto-fim {
     display: flex;
     justify-content: space-between;
     width: 95%;
+    max-width: 700px;
     padding: 15px 0px;
 }
 
@@ -156,10 +164,21 @@
 }
 
 .texto-fim {
+    max-width: 300px;
+    display: flex;
+    justify-content: flex-start;
+    box-sizing: border-box;
+    word-wrap: normal;
     color: #484848;
     font-size: 19px;
     font-weight: 700;
     line-height: 25px;
+}
+
+
+.texto-fim > p {
+    width: 18rem ; 
+    word-wrap: break-word;
 }
 
 .botao-reiniciar {
@@ -205,28 +224,31 @@
     display: none;
 }
 
-@media (max-width: 600px){
-div .tela2{
+@media (max-width: 680px){
+main .tela2{
     width: 100%;
-    margin: 0px auto;
+    background-color: #009C22;
 }
+
 div .caixa-pergunta{
-    width: auto;
+    width: 100%;
+    background-color: #009C22;
     margin: 0px auto;
 }
+
 div .titulo-pergunta{
-    width: 100%;
-    padding-left: 0px;
+    width: 100%;  
 }
 
 div .respostas{
     width: 100%;
     margin: 20px auto;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
+
 }
 
 div .resposta{
-    width:45%;  
+    width:48%;  
 }
 div .resposta img{
     width: 100%;
@@ -244,6 +266,10 @@ div .caixa-texto-fim{
     flex-direction: column;
 }
 div .imagem-fim{
-    width: 90%;
+    width: 100%;
+}
+.texto-fim > p {
+    width: 22rem; 
+    word-wrap: break-word;
 }
 }
