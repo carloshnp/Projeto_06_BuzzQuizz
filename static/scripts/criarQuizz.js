@@ -2,15 +2,25 @@ const values = [];
 const quizz = {};
 let numberQuestions;
 let numberLevels;
+let titleInput;
+let colorInput;
+let textInput;
+let imageInput;
+let textWrongInput;
+let imageWrongInput;
+let levelTitleInput;
+let levelImageInput;
+let percentageInput;
+let descriptionInput;
+let stopQuestions = true;
+let stopLevels = true;
 const regExHex = new RegExp("^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$");
-
 
 // transforma values do input numa array
 function getValue(i) {
     const valor = i.value;
     values.push(valor);
 }
-
 
 // cria o quizz a partir das informações básicas
 // cada condicional verifica os requisitos de cada input
@@ -221,14 +231,7 @@ function showLevel(teste) {
     questionOpen.classList.add('open');
 }
 
-let titleInput;
-let colorInput;
-let textInput;
-let imageInput;
-let textWrongInput;
-let imageWrongInput;
-let stopQuestions = true;
-
+// essa função deve verificar os inputs das perguntas para atender os requisitos de cada input da pergunta; se todos os requisitos forem cumpridos, as perguntas devem ser guardadas no objeto 'quizz{}' na key 'questions'
 function storeQuestions() {
 
     const questions = document.querySelectorAll(".pergunta");
@@ -288,7 +291,6 @@ function storeQuestions() {
     parte3.classList.toggle('hidden');
     console.log('mudou de tela');
     /*
-     essa função deve verificar os inputs das perguntas para atender os requisitos de cada input da pergunta; se todos os requisitos forem cumpridos, as perguntas devem ser guardadas no objeto 'quizz{}' no formato a seguir
     - key: questions
     - value: array de objetos (perguntas)
         - title: titulo da pergunta(i)
@@ -324,31 +326,28 @@ function checkIncorrectAnswers() {
     // escrever condicional da URL da imagem
 }
 
-let percentageInput;
-let descriptionInput;
-
+// essa função deve verificar os inputs dos níveis para atender os requisitos de cada input do nível; se todos os requisitos forem cumpridos, os níveis devem ser guardadas no objeto 'quizz{}' na key 'levels'
 function storeLevels() {
     const levels = document.querySelectorAll(".level");
     const levelsObj = [];
     for(const level of levels) {
         const levelSection = level.querySelector(".level-inputs");
 
-        titleInput = levelSection.querySelector(".level-title").value;
+        levelTitleInput = levelSection.querySelector(".level-title").value;
         percentageInput = levelSection.querySelector(".level-percentage").value;
-        imageInput = levelSection.querySelector(".level-image").value;
+        levelImageInput = levelSection.querySelector(".level-image").value;
         descriptionInput = levelSection.querySelector(".level-description").value;
 
         const levelObj = {
-                    title: titleInput,
-                    image: imageInput,
+                    title: levelTitleInput,
+                    image: levelImageInput,
                     text: descriptionInput,
                     minValue: percentageInput
                 }
         levelsObj.push(levelObj);
+        checkLevels();
     }
     quizz['levels'] = levelsObj;
-
-    // essa função deve verificar os inputs dos níveis para atender os requisitos de cada input do nível; se todos os requisitos forem cumpridos, os níveis devem ser guardadas no objeto 'quizz{}' no formato a seguir
     /*
     - key: levels
     - value: array de objetos (níveis)
@@ -357,5 +356,8 @@ function storeLevels() {
         - text: descrição do nível(i)
         - minValue: % mínima do nível(i) (entre 0 e 100)
      */
+}
 
+function checkLevels() {
+    return;
 }
