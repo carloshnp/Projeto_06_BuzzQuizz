@@ -54,7 +54,7 @@
   margin-top: 20px;
 }
 
-.criar-perguntas-quizz {
+.criar-perguntas-quizz, .criar-niveis-quizz {
   background-color: #FAFAFA;
   margin-top: 70px;
   padding-bottom: 60px;
@@ -64,7 +64,7 @@
   align-items: center;
 }
 
-.perguntas {
+.perguntas, .niveis {
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -72,7 +72,7 @@
   align-items: center;
 }
 
-.pergunta {
+.pergunta, .level {
   background-color: #FFFFFF;
   height: 100%;
   width: 100%;
@@ -87,7 +87,14 @@
   padding-bottom: 14px;
 }
 
-.pergunta-titulo, .correta, .incorreta {
+.level h2 {
+  font-size: 20px;
+  font-weight: 700;
+  padding-left: 17px;
+  padding-bottom: 14px;
+}
+
+.pergunta-titulo, .correta, .incorreta, .level-inputs {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -99,7 +106,11 @@
   display: none;
 }
 
-.pergunta.hidden-edit {
+.level img {
+  display: none;
+}
+
+.pergunta.hidden-edit, .level.hidden-edit {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -113,11 +124,27 @@
   margin-top: -28px;
 }
 
+.level.hidden-edit img {
+  display: initial;
+  width: 26px;
+  height: 23px;
+  margin-right: 17px;
+  margin-top: -28px;
+}
+
 .pergunta.hidden-edit .pergunta-titulo, .pergunta.hidden-edit .resposta-correta, .pergunta.hidden-edit .respostas-incorretas {
   display: none;
 }
 
+.level.hidden-edit .level-inputs {
+  display: none;
+}
+
 .pergunta.hidden-edit h2 {
+  padding-bottom: 28px;
+}
+
+.level.hidden-edit h2 {
   padding-bottom: 28px;
 }
 

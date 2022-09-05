@@ -66,7 +66,7 @@ function criarQuizz() {
         // renderiza os formulários de perguntas e níveis
         renderQuestions();
         // adicionar renderLevels(); aqui
-        renderLevels();
+        
         // esconde a tela de informações básicas do quizz
         const parte1 = document.querySelector('.criar-quizz');
         parte1.classList.toggle('hidden');
@@ -281,6 +281,7 @@ function storeQuestions() {
         return;
     }
     quizz['questions'] = questionsObj;
+    renderLevels();
     // esconde a tela de criação de perguntas do quizz
     const parte2 = document.querySelector('.criar-perguntas-quizz');
     parte2.classList.toggle('hidden');
