@@ -143,8 +143,6 @@ function criarQuizz() {
     // dar toggle('hidden') na class 'criar-perguntas-quizz'
 
     // dividir essa função em várias funções
-
-
 function renderQuestions() {
     const element = document.querySelector('.perguntas');
 
